@@ -1968,11 +1968,6 @@
 			
 			action.setToggleAction(true);
 			action.setSelectedCallback(function() { return editorUi.scratchpad != null; });
-
-			editorUi.actions.addAction('plugins...', function()
-			{
-				editorUi.showDialog(new PluginsDialog(editorUi).container, 360, 170, true, false);
-			});
 		}
 		
 		var action = editorUi.actions.addAction('search', function()
@@ -3351,11 +3346,6 @@
 			
 			menu.addSeparator(parent);
 			
-			if (!editorUi.isOfflineApp() && isLocalStorage)
-			{
-				this.addMenuItem(menu, 'plugins', parent);
-			}
-
 			this.addMenuItems(menu, ['tags', '-', 'editDiagram', '-', 'configuration'], parent);
 			
 			// Adds trailing separator in case new plugin entries are added
@@ -3417,23 +3407,7 @@
 		{
 			if (urlParams['embed'] == '1')
 			{
-				this.addSubmenu('importFrom', menu, parent);
-				this.addSubmenu('exportAs', menu, parent);
-				this.addSubmenu('embed', menu, parent);
-
-				if (urlParams['libraries'] == '1')
-				{
-					this.addMenuItems(menu, ['-'], parent);
-					this.addSubmenu('newLibrary', menu, parent);
-					this.addSubmenu('openLibraryFrom', menu, parent);
-				}
-				
-				if (editorUi.isRevisionHistorySupported())
-				{
-					this.addMenuItems(menu, ['-', 'revisionHistory'], parent);
-				}
-				
-				this.addMenuItems(menu, ['-', 'pageSetup', 'print', '-', 'rename', urlParams['noSaveBtn'] == '1'? 'saveAndExit' : 'save'], parent);
+				this.addMenuItems(menu, ['-', 'pageSetup', '-', urlParams['noSaveBtn'] == '1'? 'saveAndExit' : 'save'], parent);
 				
 				if (urlParams['saveAndExit'] == '1' && urlParams['noSaveBtn'] != '1')
 				{
