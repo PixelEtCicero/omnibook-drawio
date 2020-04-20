@@ -10500,7 +10500,7 @@
 		
 		if (this.tabContainer != null)
 		{
-			this.tabContainer.style.visibility = (enabled) ? '' : 'hidden';	
+			this.tabContainer.style.visibility = 'hidden';	
 		}
 		
 		if (!enabled)

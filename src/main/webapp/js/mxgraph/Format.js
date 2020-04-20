@@ -718,7 +718,7 @@ BaseFormatPanel.prototype.createPanel = function()
 {
 	var div = document.createElement('div');
 	div.className = 'geFormatSection';
-	div.style.padding = '12px 0px 12px 18px';
+	div.style.padding = '12px 0px 12px 6px';
 	
 	return div;
 };

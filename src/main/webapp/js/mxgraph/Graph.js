@@ -2018,26 +2018,7 @@ Graph.prototype.getPageSize = function()
  */
 Graph.prototype.getPageLayout = function()
 {
-	var size = this.getPageSize();
-	var bounds = this.getGraphBounds();
-
-	if (bounds.width == 0 || bounds.height == 0)
-	{
-		return new mxRectangle(0, 0, 1, 1);
-	}
-	else
-	{
-		var x0 = Math.floor(Math.ceil(bounds.x / this.view.scale -
-			this.view.translate.x) / size.width);
-		var y0 = Math.floor(Math.ceil(bounds.y / this.view.scale -
-			this.view.translate.y) / size.height);
-		var w0 = Math.ceil((Math.floor((bounds.x + bounds.width) / this.view.scale) -
-			this.view.translate.x) / size.width) - x0;
-		var h0 = Math.ceil((Math.floor((bounds.y + bounds.height) / this.view.scale) -
-			this.view.translate.y) / size.height) - y0;
-		
-		return new mxRectangle(x0, y0, w0, h0);
-	}
+	return new mxRectangle(0, 0, 1, 1);
 };
 
 /**
@@ -7256,15 +7237,14 @@ if (typeof mxVertexHandler != 'undefined')
 
 			try 
 			{
-				scale = (scale != null) ? scale : 1;
+				scale = 1;
 				border = (border != null) ? border : 0;
 				crisp = (crisp != null) ? crisp : true;
-				ignoreSelection = (ignoreSelection != null) ? ignoreSelection : true;
+				ignoreSelection = true;
 				showText = (showText != null) ? showText : true;
+				this.view.setScale(1);
 	
-				var bounds = (ignoreSelection || nocrop) ?
-					this.getGraphBounds() : this.getBoundingBox(
-					this.getSelectionCells());
+				var bounds = this.view.getBackgroundPageBounds();
 	
 				if (bounds == null)
 				{
@@ -7301,14 +7281,14 @@ if (typeof mxVertexHandler != 'undefined')
 					root.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', mxConstants.NS_XLINK);
 				}
 				
-				var s = scale / vs;
-				var w = Math.max(1, Math.ceil(bounds.width * s) + 2 * border) + ((hasShadow) ? 5 : 0);
-				var h = Math.max(1, Math.ceil(bounds.height * s) + 2 * border) + ((hasShadow) ? 5 : 0);
+				var s = 1;
+				var w = bounds.width;
+				var h = bounds.height;
 				
 				root.setAttribute('version', '1.1');
 				root.setAttribute('width', w + 'px');
 				root.setAttribute('height', h + 'px');
-				root.setAttribute('viewBox', ((crisp) ? '-0.5 -0.5' : '0 0') + ' ' + w + ' ' + h);
+				root.setAttribute('viewBox', bounds.x + ' ' + bounds.y + ' ' + w + ' ' + h);
 				svgDoc.appendChild(root);
 			
 			    // Renders graph. Offset will be multiplied with state's scale when painting state.
@@ -7318,11 +7298,11 @@ if (typeof mxVertexHandler != 'undefined')
 			    root.appendChild(group);
 
 				var svgCanvas = this.createSvgCanvas(group);
-				svgCanvas.foOffset = (crisp) ? -0.5 : 0;
-				svgCanvas.textOffset = (crisp) ? -0.5 : 0;
-				svgCanvas.imageOffset = (crisp) ? -0.5 : 0;
-				svgCanvas.translate(Math.floor((border / scale - bounds.x) / vs),
-					Math.floor((border / scale - bounds.y) / vs));
+				svgCanvas.foOffset = 0;
+				svgCanvas.textOffset = 0;
+				svgCanvas.imageOffset = 0;
+				svgCanvas.translate(Math.floor((border / scale) / vs),
+					Math.floor((border / scale) / vs));
 				
 				// Convert HTML entities
 				var htmlConverter = document.createElement('div');
