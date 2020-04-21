@@ -3367,14 +3367,7 @@ EditorUi.prototype.createDivs = function()
 		this.sidebarFooterContainer.style.left = '0px';
 	}
 	
-	if (!this.editor.chromeless)
-	{
-		this.tabContainer = this.createTabContainer();
-	}
-	else
-	{
-		this.diagramContainer.style.border = 'none';
-	}
+	this.diagramContainer.style.border = 'none';
 };
 
 /**
@@ -4503,7 +4496,6 @@ EditorUi.prototype.createKeyHandler = function(editor)
 	keyHandler.bindKey(35, function() { graph.refresh(); }); // End
 	keyHandler.bindAction(107, true, 'zoomIn'); // Ctrl+Plus
 	keyHandler.bindAction(109, true, 'zoomOut'); // Ctrl+Minus
-	keyHandler.bindAction(80, true, 'print'); // Ctrl+P
 	keyHandler.bindAction(79, true, 'outline', true); // Ctrl+Shift+O
 
 	if (!this.editor.chromeless || this.editor.editable)
