@@ -7239,7 +7239,7 @@ if (typeof mxVertexHandler != 'undefined')
 			{
 				scale = 1;
 				border = (border != null) ? border : 0;
-				crisp = (crisp != null) ? crisp : true;
+				crisp = true;
 				ignoreSelection = true;
 				showText = (showText != null) ? showText : true;
 				this.view.setScale(1);
@@ -7288,7 +7288,7 @@ if (typeof mxVertexHandler != 'undefined')
 				root.setAttribute('version', '1.1');
 				root.setAttribute('width', w + 'px');
 				root.setAttribute('height', h + 'px');
-				root.setAttribute('viewBox', bounds.x + ' ' + bounds.y + ' ' + w + ' ' + h);
+				root.setAttribute('viewBox', (bounds.x - ((crisp) ? -0.5 : 0)) + ' ' + (bounds.y - ((crisp) ? -0.5 : 0)) + ' ' + w + ' ' + h);
 				svgDoc.appendChild(root);
 			
 			    // Renders graph. Offset will be multiplied with state's scale when painting state.
@@ -7297,10 +7297,11 @@ if (typeof mxVertexHandler != 'undefined')
 			    	svgDoc.createElementNS(mxConstants.NS_SVG, 'g') : svgDoc.createElement('g');
 			    root.appendChild(group);
 
+				/* OMNIBOOK: Workaround Chrome not displaying text if 'crisp' option is disabled => Forced true, translate everythin by half a pixel. */
 				var svgCanvas = this.createSvgCanvas(group);
-				svgCanvas.foOffset = 0;
-				svgCanvas.textOffset = 0;
-				svgCanvas.imageOffset = 0;
+				svgCanvas.foOffset = (crisp) ? -0.5 : 0;
+				svgCanvas.textOffset = (crisp) ? -0.5 : 0;
+				svgCanvas.imageOffset = (crisp) ? -0.5 : 0;
 				svgCanvas.translate(Math.floor((border / scale) / vs),
 					Math.floor((border / scale) / vs));
 				
