@@ -544,11 +544,6 @@ Toolbar.prototype.createTextToolbar = function()
 			this.editorUi.actions.get('link').funct();
 		}));
 		
-		menu.addItem(mxResources.get('insertImage'), null, mxUtils.bind(this, function()
-		{
-			this.editorUi.actions.get('image').funct();
-		}));
-		
 		menu.addItem(mxResources.get('insertHorizontalRule'), null, mxUtils.bind(this, function()
 		{
 			document.execCommand('inserthorizontalrule', false, null);

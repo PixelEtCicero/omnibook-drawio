@@ -6978,39 +6978,7 @@ if (typeof mxVertexHandler != 'undefined')
 		 */
 		Graph.prototype.insertImage = function(newValue, w, h)
 		{
-			// To find the new image, we create a list of all existing links first
-			if (newValue != null && this.cellEditor.textarea != null)
-			{
-				var tmp = this.cellEditor.textarea.getElementsByTagName('img');
-				var oldImages = [];
-				
-				for (var i = 0; i < tmp.length; i++)
-				{
-					oldImages.push(tmp[i]);
-				}
-				
-				// LATER: Fix inserting link/image in IE8/quirks after focus lost
-				document.execCommand('insertimage', false, newValue);
-				
-				// Sets size of new image
-				var newImages = this.cellEditor.textarea.getElementsByTagName('img');
-				
-				if (newImages.length == oldImages.length + 1)
-				{
-					// Inverse order in favor of appended images
-					for (var i = newImages.length - 1; i >= 0; i--)
-					{
-						if (i == 0 || newImages[i] != oldImages[i - 1])
-						{
-							// Workaround for lost styles during undo and redo is using attributes
-							newImages[i].setAttribute('width', w);
-							newImages[i].setAttribute('height', h);
-							
-							break;
-						}
-					}
-				}
-			}
+			return;
 		};
 				
 		/**

@@ -377,14 +377,6 @@ Actions.prototype.init = function()
 			});
 		}
 	}, null, null, 'Alt+Shift+L');
-	this.put('insertImage', new Action(mxResources.get('image') + '...', function()
-	{
-		if (graph.isEnabled() && !graph.isCellLocked(graph.getDefaultParent()))
-		{
-			graph.clearSelection();
-			ui.actions.get('image').funct();
-		}
-	})).isEnabled = isGraphEnabled;
 	this.put('insertLink', new Action(mxResources.get('link') + '...', function()
 	{
 		if (graph.isEnabled() && !graph.isCellLocked(graph.getDefaultParent()))

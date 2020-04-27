@@ -2748,7 +2748,7 @@
 		{
 			this.addMenuItems(menu, ['insertRectangle', 'insertEllipse',
 				'insertRhombus', '-', 'insertText', 'insertLink', '-',
-				'createShape', 'insertFreehand', '-', 'insertImage'], parent);
+				'createShape', 'insertFreehand'], parent);
 
 			if (editorUi.insertTemplateEnabled && !editorUi.isOffline())
 			{
